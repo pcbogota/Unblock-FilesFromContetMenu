@@ -1,4 +1,4 @@
-﻿<# Unblock Files
+<# Unblock Files
 Command for a file
 Unblock-File -LiteralPath "C:\ruta\archivo.zip"
 
@@ -11,13 +11,13 @@ Get-ChildItem -LiteralPath "C:\ruta\carpeta" -Recurse -File | Unblock-File
 $contenidoRegCommand = @'
 Windows Registry Editor Version 5.00
 
-[HKEY_CLASSES_ROOT\AllFilesystemObjects\shell\DebugRuta]
+[HKEY_CLASSES_ROOT\AllFilesystemObjects\shell\UnlockZoneIdentifier]
 @="Marcar como seguro (Desbloquear)"
 "HasLUAShield"=""
-;Icono de check en Windows 11
+;Icono de check en Windows 10/11
 "Icon"="shell32.dll,-16810"
 
-[HKEY_CLASSES_ROOT\AllFilesystemObjects\shell\DebugRuta\command]
+[HKEY_CLASSES_ROOT\AllFilesystemObjects\shell\UnlockZoneIdentifier\command]
 @="PowerShell -NoProfile -Command \"Start-Process -Verb RunAs -FilePath 'powershell' -ArgumentList '-Command','$ruta = \\\"\\\"\\\"%V\\\"\\\"\\\"; $item = Get-Item -LiteralPath \\\"$ruta\\\"; if ($item.PSIsContainer) { Write-Host \" Desbloqueando la carpeta $ruta... \"; Get-ChildItem -LiteralPath $ruta -Recurse -File | Unblock-File} else { Write-Host \" Desbloqueando el archivo $ruta \"; Unblock-File -LiteralPath $ruta }; Write-Host \"Terminado...\"; Start-Sleep 2'\""
 '@
 
